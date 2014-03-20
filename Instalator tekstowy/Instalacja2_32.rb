@@ -133,9 +133,9 @@ puts "
 "
 
 if d == "1"
-system "pacman -S nvidia --noconfirm"
+system "pacman -S nvidia nvidia-libgl --noconfirm"
 elsif d == "2"
-system "pacman -S nvidia-304xx --noconfirm"
+system "pacman -S nvidia-304xx nvidia-304xx-libgl --noconfirm"
 elsif d == "3"
 system "pacman -S xf86-video-ati --noconfirm"
 elsif d == "4"
@@ -148,7 +148,7 @@ end
 
 system "( echo [repo32] ; echo SigLevel = Never ; echo Server = https://dl.dropboxusercontent.com/u/44000136/Repo32/) >> /etc/pacman.conf"
 system "pacman -Sy"
-system "pacman -S xorg-server xorg-xinit cinnamon cinnamon-control-center nemo gnome-terminal ntfs-3g conky xdg-user-dirs chromium chromium-pepper-flash  xterm alsa-utils gksu gedit p7zip wxgtk shotwell gnome-system-monitor gnome-keyring base-devel cinnamon-screensaver gnome-calculator evince gnome-screenshot nemo-fileroller #{all} --noconfirm"
+system "pacman -S phonon-gstreamer bash-completion xorg-server xorg-xinit cinnamon cinnamon-control-center nemo gnome-terminal ntfs-3g conky xdg-user-dirs chromium chromium-pepper-flash  xterm alsa-utils gksu gedit p7zip wxgtk shotwell gnome-system-monitor gnome-keyring base-devel cinnamon-screensaver gnome-calculator evince gnome-screenshot nemo-fileroller #{all} --noconfirm"
 puts "
 "
 
