@@ -203,7 +203,7 @@
 		system "mv /home/lxdm.conf /etc/lxdm"
 		system "systemctl enable lxdm"
 	elsif $LoginManager == "n"
-		system "( echo [Service] ; echo ExecStart= ; echo ExecStart=-/sbin/agetty --autologin #{u} --noclear %I 38400 linux) >> /etc/systemd/system/getty@tty1.service.d/autologin.conf"
+		system "( echo [Service] ; echo ExecStart= ; echo ExecStart=-/sbin/agetty --autologin #{$UserName} --noclear %I 38400 linux) >> /etc/systemd/system/getty@tty1.service.d/autologin.conf"
 		system "rm /home/lxdm.conf"
 		system "rm /etc/nexia/lxbg.png"
 	end
