@@ -3,6 +3,7 @@
 
 	puts "Witamy w instalatorze systemu Nexia"
 	puts "Uwaga! Prosze zachowac ostroznosc, w szczegolnosci podczas montowania partycji!"
+	#Ustawienia wyswietlania w powłoce tekstowej terminala
 	system "loadkeys pl"
 	system "setfont Lat2-Terminus16"
 	system "export LANG=pl_PL.UTF-8"
@@ -11,6 +12,7 @@
 
 	puts "Prosze wybrac wersje systemu do zainstalowania, 32 bitowa (32), czy 64 bitowa (64)?"
 	puts "Uwaga! Musi zostac wybrana ta sama wersja systemu, ktora jest uruchomiona na live."
+	#Pobranie informacji o wersji systemu od użytkownika	
 	$WersjaSystemu = gets.chomp!
 	puts ""
 	puts ""
@@ -21,10 +23,12 @@
 	puts ""
 	puts ""
 
+	#Wyświetlenie układu partycji
 	system "lsblk"
 	puts ""
 	puts ""
 
+	#Poproszenie użytkownika o podanie partycji do zamontowania podczas instalacji
 	puts "Prosze wybrac partycje, ktora ma zostac uzyta jako glowna:"
 	$PartycjaRoot = gets.chomp!
 	system "mount /dev/#{$PartycjaRoot} /mnt"
@@ -54,6 +58,7 @@
 	puts ""
 	puts ""
 
+	#Rozpoczęcie instalacji podstawowych składnikow systemu oraz generowanie pliku fstab
 	puts "Czy rozpoczac instalacje podstawowych skladnikow systemu ?(t/n)"
 	i = gets.chomp!
 	if i == "t"
@@ -62,6 +67,7 @@
 		puts ""
 		puts ""
 
+		#Kopiowanie plikow konfiguracyjnych od Nexi do konfiguracji nowego systemu lub katalogów tymczasowych
 		puts "Prosze czekac, trwa kopiowanie plikow"
 		system "cp /etc/locale.conf /mnt/etc"
 		system "cp /etc/locale.gen /mnt/etc"
@@ -99,6 +105,8 @@
 		system "cp /etc/skel/.yapan /mnt/etc/skel"
 		system "cp /etc/lxdm.conf /mnt/home"
 		system "cp -R /etc/nexia /mnt/etc"
+	
+	#Zostaje przekopiowania różna konfiguracja conkiego w zależności czy istnieje osobna partycja home czy nie
 	if $HomeWybor == "t"
 		system "cp /etc/.conkyrc /mnt/etc/skel"
 	elsif $HomeWybor == "n"
@@ -107,6 +115,7 @@
 	puts ""
 	puts ""
 
+	#Uruchomienie 2 cześci instalatora zależnie od wersji systemu
 	system "arch-chroot /mnt ruby /etc/nexia/Instalacja2_#{$WersjaSystemu}.rb"
 	elsif i =="n"
 		puts "Do widzenia"

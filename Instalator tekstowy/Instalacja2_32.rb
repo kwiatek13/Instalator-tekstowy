@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 #Domyślna tabulacja dokumentu - 4 spacje
 
+	#Generowanie języka i czasu systemowego
 	system "locale-gen"
 	system "export LANG=pl_PL.UTF-8"
 	system "loadkeys pl"
@@ -8,19 +9,23 @@
 	system "ln -s /usr/share/zoneinfo/Europe/Warsaw /etc/localtime"
 	system "hwclock --systohc --utc"
 
+	#Pytanie o sieciową nazwe komputera
 	puts "Prosze podac nazwe komputera:"
 	$Hostname = gets.chomp!
 	system "echo #{$Hostname} > /etc/hostname"
 	puts ""
 	puts ""
 
+	#Pytanie o posiadana karte graficzną
 	puts "Prosze wybrac sterownik pod posiadana karte graficzna: (1 - Nvidia, 2 - Nvidia, modele starszej serii od 8000, 3 - Ati, 4 - Intel, 5 - Vesa, 6 - Virtualbox)"
 	$VideoDriver = gets.chomp!
 	puts ""
 	puts ""
 
+	#Tworzenie pustej zmiennej tekstowej do przechowywania dodatkowych paczek wybranych przez użytkownika podczas instalacji
 	$ListaPaczek = ""
 
+	#Pytania dla użytkownika na temat dodatkowego oprogramowania do instalacji
 	puts "Czy chcesz dodac menedzer logowania (t), lub ustawic autologowanie dla utworzonego uzytkownika (n)?"
 	$LoginManager = gets.chomp!
 	if $LoginManager == "t"
@@ -137,6 +142,7 @@
 		print "Zrezygnowano z instalacji programu."
 	end
 
+	#Instalacja i konfiguracja bootloadera
 	system "pacman -S grub-bios os-prober --noconfirm"
 	system "rm /etc/default/grub"
 	system "mv /etc/nexia/grub /etc/default"
@@ -146,6 +152,7 @@
 	puts ""
 	puts ""
 
+	#If przemienający wcześniejszy wybór sterownika na konkretne paczki do instalacji
 	if $VideoDriver == "1"
 		system "pacman -S nvidia nvidia-libgl --noconfirm"
 	elsif $VideoDriver == "2"
@@ -160,15 +167,18 @@
 		system "pacman -S virtualbox-guest-utils --noconfirm"
 	end
 
+	#Dodanie dodatkowych repozytoriów i instalacja paczek - Podstawowych nexi i tych wybranych wcześniej przez użytkownika
 	system "( echo [repo32] ; echo SigLevel = Never ; echo Server = https://dl.dropboxusercontent.com/u/44000136/Repo32/) >> /etc/pacman.conf"
 	system "pacman -Syy"
 	system "pacman -S phonon-gstreamer bash-completion xorg-server xorg-xinit cinnamon cinnamon-control-center nemo gnome-terminal ntfs-3g conky xdg-user-dirs chromium chromium-pepper-flash  xterm alsa-utils gksu gedit p7zip wxgtk shotwell gnome-system-monitor gnome-keyring base-devel cinnamon-screensaver gnome-calculator evince gnome-screenshot nemo-fileroller #{$ListaPaczek} --noconfirm"
 	puts ""
 	puts ""
 
+	#tworzenie podstawowej konfiguracji startx
 	system "rm /etc/skel/.xinitrc"
 	system "mv /home/.xinitrc /etc/skel"
 
+	#Tworzenie normalnego konta użytkownika
 	puts "Prosze podac nazwe uzytkownika(bez duzych liter!):"
 	$UserName = gets.chomp!
 	system "useradd -m -G users,audio,lp,optical,storage,video,wheel,power -s /bin/bash #{$UserName}"
@@ -176,17 +186,20 @@
 	puts ""
 	puts ""
 
+	#Nadanie hasła kontu root
 	puts "Prosze podac haslo dla uzytkownika root:"
 	system "passwd root"
 	puts ""
 	puts ""
 
+	#Konfiguracja programu sieciowego
 	system "systemctl enable NetworkManager.service"
 	system "systemctl disable dhcpcd.service"
 	system "systemctl disable dhcpcd@.service"
 	system "systemctl enable wpa_supplicant.service"
 	system "gpasswd -a #{$UserName} network"
 
+	#Kopiowanie pozostałej konfiguracji z folderów tymczasowych na swoje ostateczne miejsce
 	system "mv /etc/Minty /usr/share/themes"
 	system "mv /etc/Czcionki/'Prime Light.otf' /usr/share/fonts/TTF"
 	system "mv /etc/Czcionki/'Prime Regular.otf' /usr/share/fonts/TTF"
@@ -198,6 +211,7 @@
 	system "rm /etc/sudoers"
 	system "mv /home/sudoers /etc"
 
+	#W zależności czy wybralismy menadzer logowania, czy nie  nastepuje konfiguracja albo menadzera logowania, albo autologowania i uruchamiania startx
 	if $LoginManager == "t"
 		system "rm /etc/lxdm/lxdm.conf"
 		system "mv /home/lxdm.conf /etc/lxdm"
@@ -210,6 +224,7 @@
 	puts ""
 	puts ""
 
+	#Koniec instalacji
 	puts "Instalacja zakonczona! Prosze nacisnac enter aby zakonczyc."
 	wyjscie = gets.chomp!
 	system "exit"
