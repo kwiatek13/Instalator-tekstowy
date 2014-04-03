@@ -64,10 +64,10 @@
 	puts ""
 	puts ""
 
-	puts "Czy chcesz zainstalowac notyfikacje o aktualizacjach i menedzer pakietow ? t/n"
+	puts "Czy chcesz zainstalowac graficzny menedzer pakietow ? t/n"
 	$PackageSet = gets.chomp!
 	if $PackageSet == "t"
-		$ListaPaczek << "pyalpm-manjaro pamac-aur "
+		$ListaPaczek << "gnome-packagekit gnome-settings-daemon-updates"
 	elsif $PackageSet == "n"
 		print "Zrezygnowano z instalacji programu."
 	end
