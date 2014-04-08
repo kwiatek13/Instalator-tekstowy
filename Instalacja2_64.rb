@@ -67,7 +67,7 @@
 	puts "Czy chcesz zainstalowac graficzny menedzer pakietow ? t/n"
 	$PackageSet = gets.chomp!
 	if $PackageSet == "t"
-		$ListaPaczek << "gnome-packagekit gnome-settings-daemon-updates"
+		$ListaPaczek << "gnome-packagekit gnome-settings-daemon-updates "
 	elsif $PackageSet == "n"
 		print "Zrezygnowano z instalacji programu."
 	end
@@ -193,6 +193,9 @@
 	puts ""
 	puts ""
 
+	#Konfiguracja pliku /etc/sudoers
+	system "sed -i 's/#\(\ %wheel\ ALL=(ALL)\ NOPASSWD:\ ALL\)/\1/' /etc/sudoers"
+
 	#Konfiguracja programu sieciowego
 	system "systemctl enable NetworkManager.service"
 	system "systemctl disable dhcpcd.service"
@@ -209,9 +212,7 @@
 	system "rm -R /etc/Skorki"
 	system "mv /etc/NITRUX /usr/share/icons"
 	system "mv /etc/NITRUX-Buttons /usr/share/icons"
-	system "rm /etc/sudoers"
-	system "mv /home/sudoers /etc"
-	
+
 	#W zależności czy wybralismy menadzer logowania, czy nie  nastepuje konfiguracja albo menadzera logowania, albo autologowania i uruchamiania startx
 	if $LoginManager == "t"
 		system "rm /etc/lxdm/lxdm.conf"

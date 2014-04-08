@@ -73,8 +73,6 @@
 		system "cp /etc/locale.gen /mnt/etc"
 		system "cp /etc/vconsole.conf /mnt/etc"
 		system "cp /etc/skel/.bash_profile /mnt/etc/skel"
-		system "cp /etc/skel/.bash_logout /mnt/etc/skel"
-		system "cp /etc/skel/.bashrc /mnt/etc/skel"
 		system "cp /etc/skel/.xinitrc /mnt/home"
 		system "cp /etc/skel/.xsession /mnt/etc/skel"
 		system "cp /etc/skel/.zprofile /mnt/etc/skel"
@@ -84,7 +82,6 @@
 		system "cp /etc/skel/.config/autostart/conky.desktop /mnt/etc/skel/.config/autostart"
 		system "cp /etc/skel/.config/dconf/user /mnt/etc/skel/.config/dconf"
 		system "cp -R /etc/skel/.cinnamon /mnt/etc/skel"
-		system "cp /etc/sudoers /mnt/etc"
 		system "cp /etc/skel/.logo_full.png /mnt/etc/skel/"
 		system "cp /etc/skel/.logox2.png /mnt/etc/"
 		system "cp /etc/xdg/user-dirs.conf /mnt/etc/xdg"
@@ -102,10 +99,9 @@
 		system "cp /usr/share/fonts/TTF/fonts.scale /mnt/usr/share/fonts/TTF"
 		system "cp -R /usr/share/backgrounds /mnt/usr/share"
 		system "cp /etc/sudoers /mnt/home"
-		system "cp /etc/skel/.yapan /mnt/etc/skel"
 		system "cp /etc/lxdm.conf /mnt/home"
 		system "cp -R /etc/nexia /mnt/etc"
-	
+
 	#Zostaje przekopiowania różna konfiguracja conkiego w zależności czy istnieje osobna partycja home czy nie
 	if $HomeWybor == "t"
 		system "cp /etc/.conkyrc /mnt/etc/skel"
