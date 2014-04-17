@@ -75,7 +75,6 @@
 		system "cp /etc/skel/.bash_profile /mnt/etc/skel"
 		system "cp /etc/skel/.xinitrc /mnt/home"
 		system "cp /etc/skel/.xsession /mnt/etc/skel"
-		system "cp /etc/skel/.zprofile /mnt/etc/skel"
 		system "mkdir /mnt/etc/skel/.config"
 		system "mkdir /mnt/etc/skel/.config/dconf"
 		system "mkdir /mnt/etc/skel/.config/autostart"
@@ -98,7 +97,6 @@
 		system "cp /usr/share/fonts/TTF/fonts.dir /mnt/usr/share/fonts/TTF"
 		system "cp /usr/share/fonts/TTF/fonts.scale /mnt/usr/share/fonts/TTF"
 		system "cp -R /usr/share/backgrounds /mnt/usr/share"
-		system "cp /etc/sudoers /mnt/home"
 		system "cp /etc/lxdm.conf /mnt/home"
 		system "cp -R /etc/nexia /mnt/etc"
 
