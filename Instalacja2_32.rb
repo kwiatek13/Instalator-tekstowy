@@ -191,6 +191,9 @@
 	system "passwd root"
 	puts ""
 	puts ""
+	
+	#Konfiguracja pliku /etc/sudoers
+	system "sed -i 's/#\(\ %wheel\ ALL=(ALL)\ NOPASSWD:\ ALL\)/\1/' /etc/sudoers"
 
 	#Konfiguracja pliku /etc/sudoers
 	system "sed -i 's/#\(\ %wheel\ ALL=(ALL)\ NOPASSWD:\ ALL\)/\1/' /etc/sudoers"
