@@ -212,11 +212,7 @@
 	system "rm -R /etc/Skorki"
 	system "mv /etc/NITRUX /usr/share/icons"
 	system "mv /etc/NITRUX-Buttons /usr/share/icons"
-<<<<<<< HEAD:Instalacja2_64.rb
 
-=======
-	
->>>>>>> 150ea9fc02217075921466e2bfa81d4b3546c4ac:Instalacja2_64.rb
 	#W zależności czy wybralismy menadzer logowania, czy nie  nastepuje konfiguracja albo menadzera logowania, albo autologowania i uruchamiania startx
 	if $LoginManager == "t"
 		system "rm /etc/lxdm/lxdm.conf"
